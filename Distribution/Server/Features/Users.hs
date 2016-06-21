@@ -5,7 +5,6 @@ module Distribution.Server.Features.Users (
     initUserFeature,
     UserFeature(..),
     UserResource(..),
-    -- guardAuthorised',
     GroupResource(..),
   ) where
 
@@ -370,9 +369,8 @@ userFeature  usersState adminsState
     guardAuthorised' privconds = do
         users <- queryGetUserDb
         uid   <- guardAuthenticatedWithErrHook users
-        a <- Auth.checkPriviledged users uid privconds
-        return a
-
+        valid <- Auth.checkPriviledged users uid privconds
+        return valid
 
     -- Simply check if the user is authenticated as some user, without any
     -- check that they have any particular priveledges. Only useful as a
