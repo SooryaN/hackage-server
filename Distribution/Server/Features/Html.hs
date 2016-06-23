@@ -558,7 +558,8 @@ mkHtmlCore ServerEnv{serverBaseURI}
         distributions <- queryPackageStatus pkgname
         totalDown     <- cmFind pkgname `liftM` totalPackageDownloads
         recentDown    <- cmFind pkgname `liftM` recentPackageDownloads
-        pkgVotesHtml  <- renderVotesHtml pkgname
+        pkgVotes      <- pkgNumVotes pkgname
+        pkgScore      <- pkgNumScore pkgname
         mdoctarblob   <- queryDocumentation realpkg
         tags          <- queryTagsForPackage pkgname
         deprs         <- queryGetDeprecatedFor pkgname
@@ -586,7 +587,8 @@ mkHtmlCore ServerEnv{serverBaseURI}
           , "totalDownloads"    $= totalDown
           , "executables"       $= if (null execs) then "None" else execs
           , "recentDownloads"   $= recentDown
-          , "votesSection"      $= pkgVotesHtml
+          , "votes"             $= pkgVotes
+          , "score"             $= pkgScore
           , "buildStatus"       $= buildStatus
           ] ++
           -- Items not related to IO (mostly pure functions)

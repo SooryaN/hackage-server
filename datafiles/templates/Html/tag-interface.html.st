@@ -16,7 +16,7 @@
 
     <table id ="table">
       <thead>
-        <tr><th>Name</th><th>Downloads</th><th>Votes</th><th>Description</th><th>Tags</th><th>Maintainer</th></tr>
+        <tr><th>Name</th><th>Downloads</th><th>Rating</th><th>Description</th><th>Tags</th><th>Maintainer</th></tr>
       </thead>
       <tbody>
         $tabledata$

@@ -61,7 +61,7 @@ data PackageItem = PackageItem {
     -- Whether the item is in the Haskell Platform
   --itemPlatform :: Bool,
     -- Number of votes for the package
-    itemVotes :: !Int,
+    itemVotes :: !Float,
     -- The total number of downloads. (For sorting, not displaying.)
     -- Updated periodically.
     itemDownloads :: !Int,
@@ -126,7 +126,7 @@ initListFeature _env = do
       -}
 
       registerHook votesUpdated $ \(pkgname, _) -> do
-          votes <- pkgNumVotes pkgname
+          votes <- pkgNumScore pkgname
           modifyItem pkgname (updateVoteItem votes)
           runHook_ itemUpdate (Set.singleton pkgname)
 
@@ -216,7 +216,7 @@ listFeature CoreFeature{..}
         -- [reverse index disabled] revCount <- query . GetReverseCount $ pkgname
         tags  <- queryTagsForPackage pkgname
         downs <- recentPackageDownloads
-        votes <- pkgNumVotes pkgname
+        votes <- pkgNumScore pkgname
         deprs <- queryGetDeprecatedFor pkgname
         return $ (,) pkgname $ (updateDescriptionItem (pkgDesc pkg) $ emptyPackageItem pkgname) {
             itemTags       = tags
@@ -263,10 +263,10 @@ updateTagItem tags item =
     item {
         itemTags = tags
     }
-updateVoteItem :: Int -> PackageItem -> PackageItem
-updateVoteItem votes item =
+updateVoteItem :: Float -> PackageItem -> PackageItem
+updateVoteItem score item =
     item {
-    itemVotes = votes
+    itemVotes = score
     }
 updateDeprecation :: Maybe [PackageName] -> PackageItem -> PackageItem
 updateDeprecation pkgs item =
