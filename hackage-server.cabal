@@ -152,7 +152,7 @@ executable hackage-server
     Distribution.Server.Pages.Package.HaddockTypes
     Distribution.Server.Pages.Recent
     Distribution.Server.Pages.AdminLog
-    -- [reverse index disabled] Distribution.Server.Pages.Reverse
+    Distribution.Server.Pages.Reverse
     Distribution.Server.Pages.Template
     Distribution.Server.Pages.Util
 
@@ -253,8 +253,8 @@ executable hackage-server
       Distribution.Server.Features.PreferredVersions
       Distribution.Server.Features.PreferredVersions.State
       Distribution.Server.Features.PreferredVersions.Backup
-      -- [reverse index disabled] Distribution.Server.Features.ReverseDependencies
-    -- [reverse index disabled] Distribution.Server.Features.ReverseDependencies.State
+      Distribution.Server.Features.ReverseDependencies
+      Distribution.Server.Features.ReverseDependencies.State
       Distribution.Server.Features.Tags
       Distribution.Server.Features.Tags.Backup
       Distribution.Server.Features.Tags.State
@@ -323,6 +323,7 @@ executable hackage-server
     ed25519,
     cryptohash-md5    == 0.11.*,
     cryptohash-sha256 == 0.11.*,
+    bimap == 0.3.*,
     binary
 
   if ! flag(minimal)

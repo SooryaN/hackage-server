@@ -165,10 +165,19 @@
         </tr>
         $endif$
 
+        $if(hasrdeps)$
+        <tr>
+          <th>ReverseDependencies</th>
+          <td>$rdeps$</td>
+        </tr>
+        $endif$
+
+        $if(hasexecs)$
         <tr>
           <th>Executables</th>
           <td>$executables$</td>
         </tr>
+        $endif$
 
         <tr>
           <th>Downloads</th>
